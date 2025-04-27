@@ -9,7 +9,3 @@ defineProps({
     message: String,
 })
 </script>
-
-<style>
-
-</style>
