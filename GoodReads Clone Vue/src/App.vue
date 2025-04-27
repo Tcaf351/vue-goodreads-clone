@@ -1,6 +1,7 @@
 <script setup>
-  import Header from './components/Header.vue';
-  import Footer from './components/Footer.vue';
+  import Header from './components/Header.vue'
+  import Footer from './components/Footer.vue'
+  import Body from './components/Body.vue'
 </script>
 
 <template>
@@ -9,6 +10,7 @@
           <div class="bg-gray-50 rounded-md shadow-lg relative sm:max-w-lg mx-auto mt-4">
             <!-- components -->
             <Header message="My Books" />
+            <Body />
             <Footer message="My Books" />
           </div>
       </div>
