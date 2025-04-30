@@ -7,10 +7,12 @@
         </div>
         <!-- reading: title in main body - finish -->
 
-        <CurrentlyReading />        
+        <CurrentlyReading />    
+        <WantToReadAndReadContainers />   
     </div>
 </template>
 
 <script setup>
 import CurrentlyReading from './CurrentlyReading.vue';
+import WantToReadAndReadContainers from './WantToReadAndReadContainers.vue';
 </script>
