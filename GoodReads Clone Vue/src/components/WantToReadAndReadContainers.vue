@@ -9,11 +9,12 @@
 
                 <div class="flex justify-start  flex-col">
                     <h4>Want to Read</h4>
-                    <p class="text-gray-400 text-xs">{{ storedBooksCount }}</p>
+                    <!-- <p class="text-gray-400 text-xs">{{ storedBooksCount }}</p> -->
+                    <p class="text-gray-400 text-xs">0 books</p>
                 </div>
             </div>
         </RouterLink> 
-        <hr>
+        <hr class="border-gray-300">
 
 
         <RouterLink to="/read">
@@ -25,11 +26,12 @@
 
                 <div class="flex justify-start flex-col">
                 <h4>Read</h4>
-                <p class="text-gray-400 text-xs">{{ storedBooksCount }}</p>
+                <!-- <p class="text-gray-400 text-xs">{{ storedBooksCount }}</p> -->
+                <p class="text-gray-400 text-xs">0 books</p>
                 </div>
             </div>
         </RouterLink>
-        <hr>
+        <hr class="border-gray-300">
     </div> <!-- want to read/read containers - finish-->
 </template>
 
