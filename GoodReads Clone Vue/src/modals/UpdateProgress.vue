@@ -1,6 +1,6 @@
 <template>
     <!-- modal to update progress - start -->
-    <section class="hidden modal absolute inset-0 z-40 flex items-center justify-center px-4 py-5"> 
+    <section class="modal absolute inset-0 z-40 flex items-center justify-center px-4 py-5"> 
         <div class="h-1/4 w-full max-w-md bg-gray-300 rounded-md"> <!-- max-w-md keeps modal centered -->
         <nav class="flex justify-between my-5 px-4">
             <button class="cancel-button">Cancel</button>
