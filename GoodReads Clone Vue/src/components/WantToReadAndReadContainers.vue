@@ -36,9 +36,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const imageValue = ref(null)
-// defineProps[{
+import { ref, watch } from 'vue'
 
-// }]
+const props = defineProps({
+  refreshFlag: Number
+})
+
+const imageValue = ref(null)
+
+watch(() => props.refreshFlag, () => {
+  console.log('localStorage updated, refreshing displayed data!')
+
+  const wantToReadBooks = JSON.parse(localStorage.getItem('wantToReadBooks')) || []
+    wantToReadImage.value = wantToReadBooks.length ? wantToReadBooks[wantToReadBooks.length - 1].cover : null
+    wantToReadCount.value = wantToReadBooks.length
+
+    const readBooks = JSON.parse(localStorage.getItem('readBooks')) || []
+    readImage.value = readBooks.length ? readBooks[readBooks.length - 1].cover : null
+    readCount.value = readBooks.length
+})
+
 </script>
