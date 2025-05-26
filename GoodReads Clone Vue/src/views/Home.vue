@@ -31,16 +31,23 @@
             </form>
         </div> <!-- search bar/container finish -->
 
-        <WantToReadAndReadContainers :refresh-flag="refreshFlag" />
+        <WantToReadAndReadContainers :latest-book="latestBook" />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import { useBookStore } from '../store/bookStore'
 import WantToReadAndReadContainers from '../components/WantToReadAndReadContainers.vue'
 import BookDetails from '../modals/BookDetails.vue'
 import Spinner from '../components/Spinner.vue'
+
+
+  const bookStore = useBookStore()
+
+  console.log(bookStore);
+
 
 // components state
 const inputValue = ref('')
@@ -56,12 +63,10 @@ const bookDescription = ref('')
 const bookCover = ref('')
 const publisher = ref('')
 
-// listen for books being added to localStorage from /modals/BookDetails.vue
-// const refreshFlag = ref(0)
-
-function handleBookAdded() {
+function handleBookAdded(bookData) {
   // hide the BookDetails modal after user submits their book to want to read, currently reading or read
   showBookDetailsModal.value = false
+  latestBook.value = bookData
 }
 
 // function to fetch api
@@ -97,6 +102,6 @@ try {
   }
 }
 
+const latestBook = ref(null)
 
-// pull from localStorage and give the data to WantToReadAndReadContainers as props. This will give a dynamic number to the p tag
 </script>

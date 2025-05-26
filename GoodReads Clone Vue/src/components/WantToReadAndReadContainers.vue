@@ -3,14 +3,12 @@
         <RouterLink to="/want-to-read">
             <div id="want-to-read-container" class="flex mx-4 mt-6">  
                 <div class="mr-3">
-                <!-- make the most recent completed book the cover -->
-                <img v-if="imageValue" :src="imageValue" alt="book cover" class="shadow-md rounded-md h-28">
+                <img v-if="wantToReadBookCover" :src="wantToReadBookCover" alt="book cover" class="shadow-md rounded-md h-28">
                 </div>
 
                 <div class="flex justify-start  flex-col">
                     <h4>Want to Read</h4>
-                    <!-- <p class="text-gray-400 text-xs">{{ storedBooksCount }}</p> -->
-                    <p class="text-gray-400 text-xs">0 books</p>
+                    <p class="text-gray-400 text-xs">{{ wantToReadBookCount }} books</p>
                 </div>
             </div>
         </RouterLink> 
@@ -20,14 +18,12 @@
         <RouterLink to="/read">
             <div id="read-container" class="flex mx-4 mt-6">  
                 <div class="mr-3">
-                <!-- make the most recent completed book the cover -->
-                <img v-if="imageValue" :src="imageValue" alt="book cover" class="shadow-md rounded-md h-28">
+                <img v-if="readBookCover" :src="readBookCover" alt="book cover" class="shadow-md rounded-md h-28">
                 </div>
 
                 <div class="flex justify-start flex-col">
                 <h4>Read</h4>
-                <!-- <p class="text-gray-400 text-xs">{{ storedBooksCount }}</p> -->
-                <p class="text-gray-400 text-xs">0 books</p>
+                <p class="text-gray-400 text-xs">{{ readBookCount }} books</p>
                 </div>
             </div>
         </RouterLink>
@@ -36,24 +32,16 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { computed } from 'vue'
+import { useBookStore } from '../store/bookStore'
 
-const props = defineProps({
-  refreshFlag: Number
-})
+const bookStore = useBookStore()
 
-const imageValue = ref(null)
+const wantToReadBookCount = computed(() => bookStore?.wantToRead?.length)
 
-watch(() => props.refreshFlag, () => {
-  console.log('localStorage updated, refreshing displayed data!')
+const wantToReadBookCover = computed(() => bookStore?.wantToRead[bookStore.wantToRead.length - 1]?.bookCover)
 
-  const wantToReadBooks = JSON.parse(localStorage.getItem('wantToReadBooks')) || []
-    wantToReadImage.value = wantToReadBooks.length ? wantToReadBooks[wantToReadBooks.length - 1].cover : null
-    wantToReadCount.value = wantToReadBooks.length
+const readBookCount = computed(() => bookStore?.read?.length)
 
-    const readBooks = JSON.parse(localStorage.getItem('readBooks')) || []
-    readImage.value = readBooks.length ? readBooks[readBooks.length - 1].cover : null
-    readCount.value = readBooks.length
-})
-
+const readBookCover = computed(() => bookStore?.read[bookStore.read.length - 1]?.bookCover)
 </script>

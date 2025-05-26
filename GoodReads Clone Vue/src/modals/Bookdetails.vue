@@ -53,6 +53,9 @@
 
 <script setup>
     import { ref } from 'vue'
+    import { useBookStore } from '../store/bookStore'
+
+    const bookStore = useBookStore()
 
     // bring in props from Home.vue
     const props = defineProps({
@@ -75,25 +78,19 @@
     switch (selectedOption.value) {
         case 'want-to-read':
         {
-            const existing = JSON.parse(localStorage.getItem('want-to-read')) || []
-            existing.push(props)
-            localStorage.setItem('want-to-read', JSON.stringify(existing))
+            bookStore.addToWantToRead(props)
         }
         break
 
         case 'currently-reading':
         {
-            const existing = JSON.parse(localStorage.getItem('currently-reading')) || []
-            existing.push(props)
-            localStorage.setItem('currently-reading', JSON.stringify(existing))
+            bookStore.addToCurrentlyReading(props)
         }
         break
 
         case 'read':
         {
-            const existing = JSON.parse(localStorage.getItem('read')) || []
-            existing.push(props)
-            localStorage.setItem('read', JSON.stringify(existing))
+            bookStore.addToRead(props)
         }
         break
 
@@ -103,6 +100,4 @@
     }
     emit('book-added')
 }
-
-
 </script>
