@@ -31,23 +31,16 @@
             </form>
         </div> <!-- search bar/container finish -->
 
-        <WantToReadAndReadContainers :latest-book="latestBook" />
+        <WantToReadAndReadContainers />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { useBookStore } from '../store/bookStore'
 import WantToReadAndReadContainers from '../components/WantToReadAndReadContainers.vue'
 import BookDetails from '../modals/BookDetails.vue'
 import Spinner from '../components/Spinner.vue'
-
-
-  const bookStore = useBookStore()
-
-  console.log(bookStore);
-
 
 // components state
 const inputValue = ref('')
@@ -66,7 +59,6 @@ const publisher = ref('')
 function handleBookAdded(bookData) {
   // hide the BookDetails modal after user submits their book to want to read, currently reading or read
   showBookDetailsModal.value = false
-  latestBook.value = bookData
 }
 
 // function to fetch api
@@ -101,7 +93,5 @@ try {
     showBookDetailsModal.value = true
   }
 }
-
-const latestBook = ref(null)
 
 </script>

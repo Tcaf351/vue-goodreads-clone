@@ -73,7 +73,7 @@
     // let Home.vue (homepage - parent) know of the change
     const emit = defineEmits(['book-added'])
 
-    // handle users selection on the dropdown & submit to local storage
+    // handle users selection on the dropdown & submit to localStorage
     const handleSubmit = () => {
     switch (selectedOption.value) {
         case 'want-to-read':

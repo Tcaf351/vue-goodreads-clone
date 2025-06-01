@@ -8,11 +8,6 @@ export const useBookStore = defineStore('bookStore', {
     }),
 
     actions: {
-        // retrieve from localStorage
-        retrieveWantToRead() {
-            this.wantToRead
-        },
-
         // add to localStorage
         addToWantToRead(book) {
             this.wantToRead.push(book)
