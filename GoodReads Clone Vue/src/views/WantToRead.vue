@@ -1,9 +1,8 @@
 <template>
     <div class="mx-4 min-h-[75vh]">
-        <h1>Want To Read Book List</h1>
-        <h2>You have {{ bookStore?.wantToRead?.length }} books you want to read</h2>
+        <h2 class="text-center">You have {{ bookStore?.wantToRead?.length }} books you want to read</h2>
 
-        <main class="min-h-[75vh]">
+        <main>
           <section id="individual-want-to-read-book" class="max-h-[75vh] overflow-auto">
           <!-- dynamic javascript map goes here -->
           <a href="#" class="relative h-full flex items-center justify-center" v-for="(wantToReadBook, index) in bookStore.wantToRead" :key="index">
