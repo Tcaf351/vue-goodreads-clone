@@ -39,7 +39,7 @@
 <script setup>
 import { ref } from 'vue'
 import WantToReadAndReadContainers from '../components/WantToReadAndReadContainers.vue'
-import BookDetails from '../modals/BookDetails.vue'
+import BookDetails from '../modals/BookDetailsModal.vue'
 import Spinner from '../components/Spinner.vue'
 
 // components state
@@ -75,6 +75,7 @@ try {
     }
 
     const data = await response.json()
+    console.log(data);
 
     bookTitle.value = data?.items[0]?.volumeInfo?.title
     subTitle.value = data?.items[0]?.volumeInfo?.subtitle

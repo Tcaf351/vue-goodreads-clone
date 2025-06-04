@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- modal overlay -->
-        <div class="hidden overlay fixed inset-0 w-screen h-screen z-40 bg-black/50 blur-sm"></div>
+        <div class="overlay fixed inset-0 w-screen h-screen z-40 bg-black/50 blur-sm"></div>
 
         <!-- modal to update progress - start -->
         <section class="absolute inset-0 z-40 flex items-center justify-center px-4 py-5"> 
@@ -14,7 +14,7 @@
 
             <div class="flex justify-center items-center mb-4">
                 <span>I'm on page</span>
-                <input id="modal-user-page-number" type="text" name="page number" class="mx-1 border border-gray-400 rounded px-2">
+                <input type="text" name="page number" class="mx-1 border border-gray-400 rounded px-2">
             </div>
             </div>
         </section>

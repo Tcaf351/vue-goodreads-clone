@@ -7,6 +7,7 @@ import App from './App.vue'
 import Home from '@views/Home.vue'
 import WantToRead from '@views/WantToRead.vue'
 import Read from '@views/Read.vue'
+import BookDetails from './views/BookDetails.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -14,6 +15,7 @@ const router = createRouter({
         { path: '/', name: 'Home', component: Home },
         { path: '/want-to-read', name: 'WantToRead', component: WantToRead },
         { path: '/read', name: 'Read', component: Read },
+        { path: '/want-to-read/:id', component: BookDetails },
     ]
 })
 
