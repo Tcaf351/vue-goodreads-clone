@@ -25,10 +25,13 @@ export const useBookStore = defineStore('bookStore', {
         },
 
         // remove from localStorage
-        removeFromWantToRead(index) {
-            this.wantToRead.splice(index, 1)
-            localStorage.setItem('want-to-read', JSON.stringify(this.wantToRead))
-        },
+        removeFromWantToRead(bookTitle) {
+            const index = this.wantToRead.findIndex((book) => book.bookTitle === bookTitle)
+            if (index !== -1) {
+              this.wantToRead.splice(index, 1)
+              localStorage.setItem('want-to-read', JSON.stringify(this.wantToRead))
+            }
+          },
 
         removeFromCurrentlyReading(index) {
         this.currentlyReading.splice(index, 1)

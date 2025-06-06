@@ -5,7 +5,7 @@
     
     <div class="mx-4 min-h-[75vh]" v-if="showPage">
 
-      <BookDetails v-if="showBookDetailsModal"
+      <BookDetailsModal v-if="showBookDetailsModal"
                   :bookTitle="bookTitle"
                   :subTitle="subTitle"
                   :author="author"
@@ -39,7 +39,7 @@
 <script setup>
 import { ref } from 'vue'
 import WantToReadAndReadContainers from '../components/WantToReadAndReadContainers.vue'
-import BookDetails from '../modals/BookDetailsModal.vue'
+import BookDetailsModal from '../modals/BookDetailsModal.vue'
 import Spinner from '../components/Spinner.vue'
 
 // components state
@@ -77,12 +77,12 @@ try {
     const data = await response.json()
     console.log(data);
 
-    bookTitle.value = data?.items[0]?.volumeInfo?.title
-    subTitle.value = data?.items[0]?.volumeInfo?.subtitle
-    author.value = data?.items[0]?.volumeInfo?.authors[0]
-    bookDescription.value = data?.items[0]?.volumeInfo?.description
-    bookCover.value = data?.items[0]?.volumeInfo?.imageLinks?.thumbnail
-    publisher.value = data?.items[0]?.volumeInfo?.publisher
+    bookTitle.value = data?.items[0]?.volumeInfo?.title || 'No title avaiable'
+    subTitle.value = data?.items[0]?.volumeInfo?.subtitle || 'No subtitle available'
+    author.value = data?.items[0]?.volumeInfo?.authors[0] || 'No author available'
+    bookDescription.value = data?.items[0]?.volumeInfo?.description || 'No description available'
+    bookCover.value = data?.items[0]?.volumeInfo?.imageLinks?.thumbnail || 'Image not available'
+    publisher.value = data?.items[0]?.volumeInfo?.publisher || 'No author available'
 
   } catch (error) {
     console.log('data is not ok', error);
