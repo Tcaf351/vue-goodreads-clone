@@ -1,10 +1,12 @@
 <template>
     <div class="relative">
         <!-- modal overlay -->
-        <div class="overlay fixed inset-0 w-screen h-screen bg-black/50 blur-sm z-10"></div>
+        <div 
+        @click="closeModal"
+        class="overlay fixed inset-0 w-screen h-screen bg-black/50 blur-sm z-10"></div>
 
         <!-- modal (book details) - start -->
-        <section id="individual-book-modal" class="absolute z-20 w-full flex flex-col items-center justify-center bg-gray-50 rounded-md shadow-lg">
+        <section class="absolute z-20 w-full flex flex-col items-center justify-center bg-gray-50 rounded-md shadow-lg">
 
             <div id="modal-book-covers" class="relative w-full flex items-center justify-center" >
                 <div class="z-20 h-full w-full absolute backdrop-blur bg-gray-500/70"></div>
@@ -73,8 +75,13 @@
     // grab dropdown v-model
     const selectedOption = ref('select')
 
+    // close modal when user clicks on the overlay
+    const closeModal = () => {
+        emit('close-modal')
+    }
+
     // let Home.vue (homepage - parent) know of the change
-    const emit = defineEmits(['book-added'])
+    const emit = defineEmits(['book-added', 'close-modal'])
 
     // handle users selection on the dropdown & submit to localStorage
     const error = computed(() => bookStore.error)

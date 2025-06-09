@@ -1,6 +1,6 @@
 <template>
     <div class="mx-4 min-h-[75vh]">
-        <h2 class="text-center">You have read {{ bookStore?.read?.length }} books this year</h2>
+        <h2 class="text-center">You have read {{ bookStore?.read?.length }} books</h2>
 
         <main class="flex justify-center items-center">
           <section class="max-h-[75vh] overflow-auto">

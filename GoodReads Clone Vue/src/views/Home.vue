@@ -5,7 +5,8 @@
     
     <div class="mx-4 min-h-[75vh]" v-if="showPage">
 
-      <BookDetailsModal v-if="showBookDetailsModal"
+      <div v-if="showBookDetailsModal">
+        <BookDetailsModal
                   :bookTitle="bookTitle"
                   :subTitle="subTitle"
                   :author="author"
@@ -13,7 +14,9 @@
                   :bookCover="bookCover"
                   :publisher="publisher"
                   @book-added="handleBookAdded"
+                  @close-modal="closeModal"
       />
+      </div>
 
         <div> <!-- search bar/container start -->
             <form @submit.prevent="handleSearch" id="search-form" class="flex items-center relative w-full top-2">
@@ -58,6 +61,10 @@ const publisher = ref('')
 
 function handleBookAdded(bookData) {
   // hide the BookDetails modal after user submits their book to want to read, currently reading or read
+  showBookDetailsModal.value = false
+}
+
+const closeModal = () => {
   showBookDetailsModal.value = false
 }
 
