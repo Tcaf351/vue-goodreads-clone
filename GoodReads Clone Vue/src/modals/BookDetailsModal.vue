@@ -7,7 +7,7 @@
         <section id="individual-book-modal" class="absolute z-20 w-full flex flex-col items-center justify-center bg-gray-50 rounded-md shadow-lg">
 
             <div id="modal-book-covers" class="relative w-full flex items-center justify-center" >
-                <div class="z-20 h-full w-full absolute backdrop-blur bg-gray-400/70"></div>
+                <div class="z-20 h-full w-full absolute backdrop-blur bg-gray-500/70"></div>
 
                 <img class="absolute h-full w-full bg-no-repeat bg-cover rounded-t-md z-10" :src="bookCover" alt="blurred book cover behind main book cover">
 
@@ -42,9 +42,12 @@
                 <button @click="handleSubmit" class="py-1 px-2 mb-4 rounded-md bg-gray-300 hover:bg-gray-400 transition-colors ease-linear">Submit</button>
             </div>
 
+            <!-- show error message is it exists -->
+            <div class="flex justify-center" v-if="error">{{ error }}</div>
                 <div class="min-h-[25vh] overflow-auto"> <!-- book description -->
                     <p id="book-description" class="px-3 text-center max-h-[25vh]"></p>
                 </div>
+
             </div>
         </section>
         <!-- modal (book details) - finish -->
@@ -52,7 +55,7 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue'
+    import { computed, ref } from 'vue'
     import { useBookStore } from '../store/bookStore'
 
     const bookStore = useBookStore()
@@ -74,11 +77,16 @@
     const emit = defineEmits(['book-added'])
 
     // handle users selection on the dropdown & submit to localStorage
+    const error = computed(() => bookStore.error)
+
     const handleSubmit = () => {
     switch (selectedOption.value) {
         case 'want-to-read':
         {
-            bookStore.addToWantToRead(props)
+            const success = bookStore.addToWantToRead(props)
+            if (!success) {
+                return
+            }
         }
         break
 
@@ -90,7 +98,10 @@
 
         case 'read':
         {
-            bookStore.addToRead(props)
+            const success = bookStore.addToRead(props)
+            if (!success) {
+                return
+            }
         }
         break
 

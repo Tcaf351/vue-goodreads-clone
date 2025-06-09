@@ -16,6 +16,7 @@ const router = createRouter({
         { path: '/want-to-read', name: 'WantToRead', component: WantToRead },
         { path: '/read', name: 'Read', component: Read },
         { path: '/want-to-read/:id', component: BookDetails },
+        { path: '/read/:id', component: BookDetails },
     ]
 })
 

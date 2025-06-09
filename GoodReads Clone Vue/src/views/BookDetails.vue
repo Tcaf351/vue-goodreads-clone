@@ -3,9 +3,9 @@
         <Spinner v-if="isLoading" />
         <section v-else class="bg-gray-50 shadow-lg  min-h-[75vh]">
                 <div id="modal-book-covers" class="relative w-full flex items-center justify-center">
-                    <div class="z-20 h-full w-full absolute backdrop-blur bg-gray-500 bg-opacity-40 saturate-100 backdrop-contrast-100"></div>
+                    <div class="z-20 h-full w-full absolute backdrop-blur bg-gray-500/70 bg-opacity-40 saturate-100 backdrop-contrast-100"></div>
             
-                    <img class="book-cover-background absolute z-10 h-full w-full bg-no-repeat bg-cover" :src="bookCover" alt="blurred book cover behind main book cover">
+                    <img class="absolute z-10 h-full w-full bg-no-repeat bg-cover" :src="bookCover" alt="blurred book cover behind main book cover">
                 
                     <img class="book-cover relative inset-0 z-30 bg-no-repeat bg-cover py-3" :src="bookCover" alt="book cover">
                 </div>
@@ -27,7 +27,7 @@
                     <div class="min-h-[25vh] overflow-auto">
                         <p id="book-description" class="px-3 text-center max-h-[25vh]">{{ bookDescription }}</p>
                     </div>
-                    <button @click="handleRemoveWantToReadBook" class="block mx-auto py-1 px-3 rounded-md bg-gray-300 hover:bg-gray-400 transition ease-in">Remove</button>
+                    <button @click="handleRemoveBook" class="block mx-auto py-1 px-3 rounded-md bg-gray-300 hover:bg-gray-400 transition ease-in">Remove</button>
                 </div>
         </section>
     </div>
@@ -90,8 +90,18 @@ onMounted(() => {
     handleApiCall()
 })
 
-const handleRemoveWantToReadBook = () => {
-  bookStore.removeFromWantToRead(bookTitle.value)
-  router.push('/')
+// Since BookDetails.vue is used for both /want-to-read/ and /read/ the remove button needs to detect what url the user is on
+const handleRemoveBook = () => {
+    const currentPath = route.path
+
+    if (currentPath.includes('/want-to-read/')) {
+        bookStore.removeFromWantToRead(bookTitle.value)
+    }
+
+    else if (currentPath.includes('/read/')) {
+        bookStore.removeFromRead(bookTitle.value)
+    }
+
+    router.push('/')
 }
 </script>

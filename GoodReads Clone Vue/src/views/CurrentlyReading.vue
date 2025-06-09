@@ -4,8 +4,8 @@
 
         <div class="z-20 h-full w-full absolute backdrop-blur bg-gray-600 bg-opacity-60 saturate-100 backdrop-contrast-100"></div>
 
-        <img id="currently-reading-cover-glassmorphism" class="absolute z-10 h-full w-full bg-no-repeat bg-cover" src="" alt="blurred book cover behind main book cover">
-        <img id="currently-reading-book-cover" class="m-4 rounded-md z-30" src="" alt="book cover">
+        <img class="absolute z-10 h-full w-full bg-no-repeat bg-cover" src="" alt="blurred book cover behind main book cover">
+        <img class="m-4 rounded-md z-30" src="" alt="book cover">
 
 
         <div class="z-30 py-4">

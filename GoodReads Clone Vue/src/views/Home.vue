@@ -20,7 +20,7 @@
               <input type="text" 
                     placeholder="Search for a book"
                     class="w-full rounded-full bg-[#f1f1f1] py-[5px] px-[10px] flex-1 pl-10"
-                    id="search-bar"
+                    required
                     v-model="inputValue"
                     >
               <span class="absolute left-3">&#x1F50D;</span> <!-- magnifying glass icon -->

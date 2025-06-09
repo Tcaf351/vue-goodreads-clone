@@ -25,6 +25,4 @@ import { useBookStore } from '../store/bookStore'
 
 // initialise pinia store
 const bookStore = useBookStore()
-
-// console.log(bookStore?.wantToRead);
 </script>

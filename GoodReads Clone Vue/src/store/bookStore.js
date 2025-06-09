@@ -5,13 +5,22 @@ export const useBookStore = defineStore('bookStore', {
         wantToRead: JSON.parse(localStorage.getItem('want-to-read')) || [],
         currentlyReading: JSON.parse(localStorage.getItem('currently-reading')) || [],
         read: JSON.parse(localStorage.getItem('read')) || [],
+        error: null,
     }),
 
     actions: {
         // add to localStorage
         addToWantToRead(book) {
+            this.error = null
+            const duplicate = this.wantToRead.find(item => item.bookTitle === book.bookTitle)
+            if (duplicate) {
+                this.error = 'You already added this book.'
+                return false
+
+            }
             this.wantToRead.push(book)
             localStorage.setItem('want-to-read', JSON.stringify(this.wantToRead))
+            return true
         },
 
         addToCurrentlyReading(book) {
@@ -20,6 +29,13 @@ export const useBookStore = defineStore('bookStore', {
         },
 
         addToRead(book) {
+            this.error = null
+            const duplicate = this.read.find(item => item.bookTitle === book.bookTitle)
+            if (duplicate) {
+                this.error = 'You already added this book.'
+                return false
+
+            }
             this.read.push(book)
             localStorage.setItem('read', JSON.stringify(this.read))
         },
