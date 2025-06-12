@@ -38,6 +38,7 @@ export const useBookStore = defineStore('bookStore', {
             }
             this.read.push(book)
             localStorage.setItem('read', JSON.stringify(this.read))
+            return true
         },
 
         // remove from localStorage
@@ -50,13 +51,16 @@ export const useBookStore = defineStore('bookStore', {
           },
 
         removeFromCurrentlyReading(index) {
-        this.currentlyReading.splice(index, 1)
-        localStorage.setItem('currently-reading', JSON.stringify(this.currentlyReading))
+            this.currentlyReading.splice(index, 1)
+            localStorage.setItem('currently-reading', JSON.stringify(this.currentlyReading))
         },
 
-        removeFromRead(index) {
-        this.read.splice(index, 1)
-        localStorage.setItem('read', JSON.stringify(this.read))
+        removeFromRead(bookTitle) {
+            const index = this.read.findIndex((book) => book.bookTitle === bookTitle)
+            if (index !== -1) {
+              this.read.splice(index, 1)
+              localStorage.setItem('read', JSON.stringify(this.read))
+            }
         },
     }
 })

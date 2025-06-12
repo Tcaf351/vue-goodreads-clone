@@ -34,16 +34,24 @@
             </form>
         </div> <!-- search bar/container finish -->
 
+        <div v-if="currentlyReadingLength">
+          <CurrentlyReading v-if="!showBookDetailsModal"
+          :currentlyReadingLength="currentlyReadingLength"
+          :currentlyReadingData="currentlyReadingData"
+          />
+        </div>
         <WantToReadAndReadContainers />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import CurrentlyReading from '../views/CurrentlyReading.vue'
 import WantToReadAndReadContainers from '../components/WantToReadAndReadContainers.vue'
 import BookDetailsModal from '../modals/BookDetailsModal.vue'
 import Spinner from '../components/Spinner.vue'
+import { useBookStore } from '../store/bookStore'
 
 // components state
 const inputValue = ref('')
@@ -59,8 +67,13 @@ const bookDescription = ref('')
 const bookCover = ref('')
 const publisher = ref('')
 
+// onLoad of the app loading fetch the currently reading list
+// bring in bookStore
+const bookStore = useBookStore()
+const currentlyReadingLength = computed(() => bookStore?.currentlyReading?.length)
+const currentlyReadingData = computed(() => bookStore?.currentlyReading)
+
 function handleBookAdded(bookData) {
-  // hide the BookDetails modal after user submits their book to want to read, currently reading or read
   showBookDetailsModal.value = false
 }
 

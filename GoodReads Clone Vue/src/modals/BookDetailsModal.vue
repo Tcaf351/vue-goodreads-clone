@@ -94,12 +94,18 @@
             if (!success) {
                 return
             }
+            emit('book-added')
         }
         break
 
         case 'currently-reading':
         {
-            bookStore.addToCurrentlyReading(props)
+            try {
+                bookStore.addToCurrentlyReading(props)
+                emit('book-added')
+            } catch (error) {
+                return error
+            }
         }
         break
 
@@ -109,6 +115,7 @@
             if (!success) {
                 return
             }
+            emit('book-added')
         }
         break
 
@@ -116,6 +123,5 @@
         console.log('Please select a valid option.')
         break
     }
-    emit('book-added')
 }
 </script>

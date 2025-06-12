@@ -8,6 +8,7 @@ import Home from '@views/Home.vue'
 import WantToRead from '@views/WantToRead.vue'
 import Read from '@views/Read.vue'
 import BookDetails from './views/BookDetails.vue'
+import CurrentlyReading from './views/CurrentlyReading.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -17,6 +18,7 @@ const router = createRouter({
         { path: '/read', name: 'Read', component: Read },
         { path: '/want-to-read/:id', component: BookDetails },
         { path: '/read/:id', component: BookDetails },
+        { path: '/currently-reading/', component: CurrentlyReading },
     ]
 })
 
