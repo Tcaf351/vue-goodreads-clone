@@ -12,7 +12,9 @@
             <h3 class="book-title text-gray-50">{{ bookTitle }}</h3>
             <p class="text-xs mb-1 text-gray-50">by <span class="author-name">{{ author }}</span></p>
 
-            <button id="update-progress-button" class="bg-[#E4E2D5] text-xs px-3 py-2 mb-2 rounded-md uppercase ">Update Progress</button>
+            <button 
+            @click="showCurrentlyReadingModal"
+            class="bg-[#E4E2D5] text-xs px-3 py-2 mb-2 rounded-md uppercase">Update Progress</button>
 
             <div class="flex pb-7">
                 <p class="text-xs uppercase mr-3 text-gray-50">progress:</p>
@@ -26,9 +28,15 @@
 <script setup>
 // bring in props
 const props = defineProps(['currentlyReadingLength', 'currentlyReadingData'])
-console.log(props?.currentlyReadingData[0]);
 const bookTitle = props?.currentlyReadingData[0]?.bookTitle || 'Book title is not available'
 const author = props?.currentlyReadingData[0]?.author || 'Author not available'
 const bookCover = props?.currentlyReadingData[0]?.bookCover || 'Book cover not available'
 
+// import pinia
+import { useModalStore } from '../store/modalStore'
+const modalStore = useModalStore()
+
+// bring in pinia functions
+const showCurrentlyReadingModal = () => modalStore.showCurrentlyReadingModal()
+const hideCurrentlyReadingModal = () => modalStore.hideCurrentlyReadingModal()
 </script>

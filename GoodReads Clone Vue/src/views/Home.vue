@@ -40,6 +40,7 @@
           :currentlyReadingData="currentlyReadingData"
           />
         </div>
+          <UpdateProgress />
         <WantToReadAndReadContainers />
     </div>
   </div>
@@ -47,11 +48,12 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useBookStore } from '../store/bookStore'
 import CurrentlyReading from '../views/CurrentlyReading.vue'
 import WantToReadAndReadContainers from '../components/WantToReadAndReadContainers.vue'
 import BookDetailsModal from '../modals/BookDetailsModal.vue'
 import Spinner from '../components/Spinner.vue'
-import { useBookStore } from '../store/bookStore'
+import UpdateProgress from '../modals/UpdateProgress.vue'
 
 // components state
 const inputValue = ref('')
