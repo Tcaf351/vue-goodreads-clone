@@ -18,7 +18,7 @@
 
             <div class="flex pb-7">
                 <p class="text-xs uppercase mr-3 text-gray-50">progress:</p>
-                <p class="text-xs ml-1 text-gray-50"><span id="percentage">0</span>%</p>
+                <p class="text-xs ml-1 text-gray-50"><span id="percentage">{{ modalStore.currentProgress }}</span>%</p>
             </div>
         </div>
     </div>
@@ -28,9 +28,13 @@
 <script setup>
 // bring in props
 const props = defineProps(['currentlyReadingLength', 'currentlyReadingData'])
+console.log(props);
 const bookTitle = props?.currentlyReadingData[0]?.bookTitle || 'Book title is not available'
 const author = props?.currentlyReadingData[0]?.author || 'Author not available'
 const bookCover = props?.currentlyReadingData[0]?.bookCover || 'Book cover not available'
+const pageCount = props?.currentlyReadingData[0]?.pageCount || 'Page count is not available'
+const test = props?.currentlyReadingData[0]
+console.log(test);
 
 // import pinia
 import { useModalStore } from '../store/modalStore'

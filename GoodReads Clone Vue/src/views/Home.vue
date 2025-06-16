@@ -13,6 +13,7 @@
                   :bookDescription="bookDescription"
                   :bookCover="bookCover"
                   :publisher="publisher"
+                  :pageCount="pageCount"
                   @book-added="handleBookAdded"
                   @close-modal="closeModal"
       />
@@ -21,7 +22,7 @@
         <div> <!-- search bar/container start -->
             <form @submit.prevent="handleSearch" id="search-form" class="flex items-center relative w-full top-2">
               <input type="text" 
-                    placeholder="Search for a book"
+                    placeholder="Search for a book..."
                     class="w-full rounded-full bg-[#f1f1f1] py-[5px] px-[10px] flex-1 pl-10"
                     required
                     v-model="inputValue"
@@ -42,6 +43,7 @@
         </div>
           <UpdateProgress />
         <WantToReadAndReadContainers />
+        <p>{{ errorMessage }}</p>
     </div>
   </div>
 </template>
@@ -68,8 +70,9 @@ const author = ref('')
 const bookDescription = ref('')
 const bookCover = ref('')
 const publisher = ref('')
+const pageCount = ref(null)
+const errorMessage = ref('')
 
-// onLoad of the app loading fetch the currently reading list
 // bring in bookStore
 const bookStore = useBookStore()
 const currentlyReadingLength = computed(() => bookStore?.currentlyReading?.length)
@@ -87,6 +90,7 @@ const closeModal = () => {
 const handleSearch = async () => {
 showPage.value = false
 isLoading.value = true
+errorMessage.value = ''
 
 try {
     // connect to google books api
@@ -105,9 +109,10 @@ try {
     bookDescription.value = data?.items[0]?.volumeInfo?.description || 'No description available'
     bookCover.value = data?.items[0]?.volumeInfo?.imageLinks?.thumbnail || 'Image not available'
     publisher.value = data?.items[0]?.volumeInfo?.publisher || 'No author available'
+    pageCount.value = data?.items[0]?.volumeInfo?.pageCount || 'No page count available'
 
   } catch (error) {
-    console.log('data is not ok', error);
+    errorMessage.value = error.message
 
   } finally {
     isLoading.value = false
@@ -116,5 +121,4 @@ try {
     showBookDetailsModal.value = true
   }
 }
-
 </script>

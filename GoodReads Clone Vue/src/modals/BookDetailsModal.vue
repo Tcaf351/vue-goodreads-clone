@@ -70,6 +70,7 @@
         bookDescription: String,
         bookCover: String,
         publisher: String,
+        pageCount: Number,
     })
 
     // grab dropdown v-model
