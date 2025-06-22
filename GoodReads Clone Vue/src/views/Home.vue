@@ -96,6 +96,8 @@ showPage.value = false // the homepage disappears
 isLoading.value = true // the spinner component shows
 errorMessage.value = ''
 
+bookStore.clearError()
+
 try {
     // connect to google books api
     const googleBooksApi = `https://www.googleapis.com/books/v1/volumes?q=${inputValue.value}` // bring in value from input
@@ -105,6 +107,10 @@ try {
     }
 
     const data = await response.json()
+
+    if (!data.items || data.items.length === 0) {
+      throw new Error(`No books found for "${inputValue.value}". Please try a different search term.`)
+    }
 
     const book = data?.items.map(item => {
       return {
@@ -118,7 +124,9 @@ try {
         pageCount: item?.volumeInfo?.pageCount || 'The total number of pages for this book is not available'
       }
     })
-    bookStore.apiList.push(...book)
+    bookStore.apiList = book
+
+    router.push('/book-list/')
 
   } catch (error) {
     errorMessage.value = error.message
@@ -127,7 +135,6 @@ try {
     isLoading.value = false // spinner component hides as data is fetched
     showPage.value = true // homepage is not hidden anymore
     inputValue.value = '' // to reset the input form after it's been submitted
-    router.push('/book-list/') // push to page with mapped api
   }
 }
 </script>

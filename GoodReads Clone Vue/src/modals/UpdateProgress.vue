@@ -25,7 +25,7 @@
                 </form>
             </div>
         </div>
-        <p v-if="errorMessage" class="text-red-500 text-sm mt-2">{{ errorMessage }}</p>
+        <p v-if="error" class="text-red-500 text-sm mt-2">{{ error }}</p>
         </section>
         <!-- modal - finish -->
     </div>
