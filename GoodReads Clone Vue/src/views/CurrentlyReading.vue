@@ -18,7 +18,7 @@
 
             <div class="flex pb-7">
                 <p class="text-xs uppercase mr-3 text-gray-50">progress:</p>
-                <p class="text-xs ml-1 text-gray-50"><span id="percentage">{{ modalStore.currentProgress }}</span>%</p>
+                <p class="text-xs ml-1 text-gray-50"><span id="percentage">{{ currentProgress }}</span>%</p>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { watch } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useModalStore } from '../store/modalStore'
 import { useBookStore } from '../store/bookStore'
 
@@ -41,6 +41,18 @@ const pageCount = props?.currentlyReadingData[0]?.pageCount || 'Page count is no
 // import pinia stores
 const modalStore = useModalStore()
 const bookStore = useBookStore()
+
+// Get progress from the book object (persists through page refreshes)
+const currentProgress = computed(() => {
+    return props?.currentlyReadingData[0]?.progress || 0
+})
+
+// Sync modalStore with book progress when component loads
+onMounted(() => {
+    if (props?.currentlyReadingData[0]?.progress) {
+        modalStore.currentProgress = props.currentlyReadingData[0].progress
+    }
+})
 
 // bring in pinia functions
 const showCurrentlyReadingModal = () => modalStore.showCurrentlyReadingModal()

@@ -36,27 +36,27 @@ export const useBookStore = defineStore('bookStore', {
 
         addToCurrentlyReading(book) {
             this.error = null
-
+        
             // Check for duplicate book in currently reading
             const duplicateCurrently = this.currentlyReading.find(item => item.bookTitle === book.bookTitle)
             if (duplicateCurrently) {
                 this.error = 'You already added this book to currently reading.'
                 return false
             }
-
+        
             // Check if book has already been read
             const alreadyRead = this.read.find(item => item.bookTitle === book.bookTitle)
             if (alreadyRead) {
                 this.error = 'This book has already been read.'
                 return false
             }
-
+        
             // Check if already at the limit (only 1 book can be currently reading)
             if (this.currentlyReading.length >= 1) {
                 this.error = 'You can only have one book in currently reading at a time.'
                 return false
             }
-
+        
             // Check for default/empty book values
             if (!book.bookTitle || book.bookTitle === 'No title available' || 
                 !book.author || book.author === 'No author available' ||
@@ -64,8 +64,14 @@ export const useBookStore = defineStore('bookStore', {
                 this.error = 'Cannot add incomplete book data to currently reading.'
                 return false
             }
-
-            this.currentlyReading.push(book)
+        
+            // Add progress property to the book when adding to currently reading
+            const bookWithProgress = {
+                ...book,
+                progress: 0  // Start with 0% progress
+            }
+        
+            this.currentlyReading.push(bookWithProgress)
             localStorage.setItem('currently-reading', JSON.stringify(this.currentlyReading))
             
             return true
