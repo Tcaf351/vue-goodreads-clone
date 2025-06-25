@@ -58,18 +58,29 @@ const calculateBookPercentage = () => {
         return
     }
 
-    // if the user enters a number higher than what the book has
     if (currentPage > totalPages) {
         errorMessage.value = `Page number cannot exceed ${totalPages}`
         return
     }
 
-    // calculate percentage
     const percentage = Math.round((currentPage / totalPages) * 100)
 
-    // Just update the progress - let modalStore handle completion
-    modalStore.UpdateProgress(percentage)
-    hideCurrentlyReadingModal()
+    try {
+        // Debug: Check what's happening
+        console.log('About to update progress:', percentage)
+        
+        modalStore.UpdateProgress(percentage)
+        
+        console.log('Progress updated successfully')
+        
+        // Clear the input and close modal
+        inputPageCount.value = ''
+        hideCurrentlyReadingModal()
+        
+    } catch (error) {
+        console.error('Error updating progress:', error)
+        errorMessage.value = 'Error updating progress. Please try again.'
+    }
 }
 
 // bring in pinia functions

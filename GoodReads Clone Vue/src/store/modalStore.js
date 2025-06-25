@@ -20,23 +20,26 @@ export const useModalStore = defineStore('modals', {
 
         // stores the calculated percentage from the updateprogress.vue file
         UpdateProgress(percentage) {
-            const validPercentage = isNaN(percentage) ? 0 : Math.max(0, Math.min(100, percentage))
-            this.currentProgress = validPercentage
-            
-            // Also update the progress in the book object
-            const bookStore = useBookStore()
-            if (bookStore.currentlyReading.length > 0) {
-                bookStore.currentlyReading[0].progress = validPercentage
-                localStorage.setItem('currently-reading', JSON.stringify(bookStore.currentlyReading))
-            }
-            
-            // Check if book is 100% complete
-            if (validPercentage >= 100) {
-                const success = bookStore.moveCurrentlyReadingToRead()
-                if (success) {
-                    this.resetProgress()
-                    this.hideCurrentlyReadingModal()
+            try {
+                const validPercentage = isNaN(percentage) ? 0 : Math.max(0, Math.min(100, percentage))
+                this.currentProgress = validPercentage
+                
+                const bookStore = useBookStore()
+                if (bookStore.currentlyReading.length > 0) {
+                    bookStore.currentlyReading[0].progress = validPercentage
+                    localStorage.setItem('currently-reading', JSON.stringify(bookStore.currentlyReading))
+                    console.log('Progress saved to localStorage:', validPercentage)
                 }
+                
+                // Check if book is 100% complete
+                if (validPercentage >= 100) {
+                    const success = bookStore.moveCurrentlyReadingToRead()
+                    if (success) {
+                        this.hideCurrentlyReadingModal()
+                    }
+                }
+            } catch (error) {
+                console.error('Error in UpdateProgress:', error)
             }
         },        
     }
