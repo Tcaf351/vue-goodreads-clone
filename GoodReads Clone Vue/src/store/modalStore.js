@@ -31,7 +31,7 @@ export const useModalStore = defineStore('modals', {
                 
                 if (success) {
                     // Reset progress since book is now complete
-                    this.currentProgress = 0
+                    this.resetProgress()
                     // Close the modal
                     this.hideCurrentlyReadingModal()
                 }

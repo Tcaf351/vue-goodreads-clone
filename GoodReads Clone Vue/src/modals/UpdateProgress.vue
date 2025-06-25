@@ -24,8 +24,8 @@
                     class="mx-1 border border-gray-400 rounded px-2">
                 </form>
             </div>
+            <p v-if="errorMessage" class="text-red-500 text-sm mt-2">{{ errorMessage }}</p>
         </div>
-        <p v-if="error" class="text-red-500 text-sm mt-2">{{ error }}</p>
         </section>
         <!-- modal - finish -->
     </div>
@@ -45,20 +45,29 @@ const fullBookLength = bookStore?.currentlyReading[0]?.pageCount
 
 // get page number the user typed in
 const inputPageCount = ref('')
-const error = ref('')
+const errorMessage = ref('')
 
 const calculateBookPercentage = () => {
     const currentPage = parseInt(inputPageCount.value)
     const totalPages = fullBookLength
 
+    errorMessage.value = ''
+
     if (isNaN(currentPage) || currentPage <= 0) {
-        error.value = 'Please enter a valid page number'
+        errorMessage.value = 'Please enter a valid page number'
         return
     }
+
+    // if the user enters a number higher than what the book has
+    if (currentPage > totalPages) {
+        errorMessage.value = `Page number cannot exceed ${totalPages}`
+        return
+    }
+
     // calculate percentage
     const percentage = Math.round((currentPage / totalPages) * 100)
 
-    // store in pinia and hide modal
+    // Just update the progress - let modalStore handle completion
     modalStore.UpdateProgress(percentage)
     hideCurrentlyReadingModal()
 }
@@ -66,7 +75,4 @@ const calculateBookPercentage = () => {
 // bring in pinia functions
 const showCurrentlyReadingModal = () => modalStore.showCurrentlyReadingModal()
 const hideCurrentlyReadingModal = () => modalStore.hideCurrentlyReadingModal()
-
-// calculate percentage of the way through the book
-
 </script>

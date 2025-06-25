@@ -8,7 +8,7 @@
             </div>
 
             <div class="w-full">
-                <h1 class="text-xl text-center mt-2">{{ currentBook?.title }}</h1>
+                <h1 class="text-xl text-center mt-2">{{ currentBook?.bookTitle }}</h1>
                 <p class="text-sm text-center">by {{ currentBook?.author }}</p>
                 <hr class="mt-4 w-[96%] mx-auto">
                 <div class="flex items-center justify-center">
@@ -53,8 +53,8 @@ const { apiList } = storeToRefs(bookStore)
 
 // Find the current book based on the route parameter
 const currentBook = computed(() => {
-    const bookTitle = decodeURIComponent(route.params.title || route.path.split('/')[1])
-    return apiList.value.find(book => book.title === bookTitle) || apiList.value[0]
+    const bookId = route.params.id || route.path.split('/')[1]
+    return apiList.value.find(book => book.id === bookId) || apiList.value[0]  // ← FIXED: use book.id
 })
 
 const selectedOption = ref('select')
@@ -67,7 +67,7 @@ const handleSubmit = () => {
     }
 
     const bookData = {
-        bookTitle: currentBook.value?.title,
+        bookTitle: currentBook.value?.bookTitle,
         subTitle: currentBook.value?.subTitle, 
         author: currentBook.value?.author,
         bookDescription: currentBook.value?.bookDescription,
@@ -83,11 +83,8 @@ const handleSubmit = () => {
             success = bookStore.addToWantToRead(bookData)
             break
 
-        case 'currently-reading':
+            case 'currently-reading':
             success = bookStore.addToCurrentlyReading(bookData)
-            if (success) {
-                modalStore.resetProgress()
-            }
             break
 
         case 'read':

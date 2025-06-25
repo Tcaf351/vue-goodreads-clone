@@ -101,9 +101,11 @@ export const useBookStore = defineStore('bookStore', {
         removeFromRead(bookTitle) {
             const index = this.read.findIndex((book) => book.bookTitle === bookTitle)
             if (index !== -1) {
-              this.read.splice(index, 1)
-              localStorage.setItem('read', JSON.stringify(this.read))
+                this.read.splice(index, 1)
+                localStorage.setItem('read', JSON.stringify(this.read))
+                return true
             }
+            return false
         },
 
         // Move book from currently reading to read when 100% complete
@@ -123,6 +125,26 @@ export const useBookStore = defineStore('bookStore', {
                 this.currentlyReading = []
                 localStorage.setItem('currently-reading', JSON.stringify(this.currentlyReading))
                 
+                return true
+            }
+            return false
+        },
+
+        removeFromWantToReadById(bookId) {
+            const index = this.wantToRead.findIndex(book => book.id === bookId)
+            if (index !== -1) {
+                this.wantToRead.splice(index, 1)
+                localStorage.setItem('want-to-read', JSON.stringify(this.wantToRead))
+                return true
+            }
+            return false
+        },
+        
+        removeFromReadById(bookId) {
+            const index = this.read.findIndex(book => book.id === bookId)
+            if (index !== -1) {
+                this.read.splice(index, 1)
+                localStorage.setItem('read', JSON.stringify(this.read))
                 return true
             }
             return false

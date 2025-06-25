@@ -115,8 +115,8 @@ try {
     const book = data?.items.map(item => {
       return {
         id: item?.id,
-        title: item?.volumeInfo?.title || 'No title available',
-        subtTitle: item?.volumeInfo?.subtitle || 'No subtitle available',
+        bookTitle: item?.volumeInfo?.title || 'No title available',  // ← Changed to bookTitle
+        subTitle: item?.volumeInfo?.subtitle || 'No subtitle available',
         author: item?.volumeInfo?.authors ? item?.volumeInfo?.authors[0] : 'No author available',
         bookDescription: item?.volumeInfo?.description || 'No description available',
         bookCover: item?.volumeInfo?.imageLinks?.thumbnail || 'Image is not available',

@@ -4,8 +4,11 @@
 
         <main class="flex justify-center items-center">
           <section class="max-h-[75vh] overflow-auto">
-          <!-- dynamic javascript map goes here -->
-          <RouterLink :to="{ path: `/read/${readBook.bookTitle}` }" class="relative h-full flex items-center justify-center" v-for="(readBook, index) in bookStore.read" :key="index">
+
+            <RouterLink :to="{ path: `/read/${encodeURIComponent(readBook.bookTitle)}`}" 
+              class="relative h-full flex items-center justify-center" 
+              v-for="(readBook, index) in bookStore.read" 
+              :key="index">
             <div>
                 <img class="book-cover inset-0 z-30 py-3" :src="readBook?.bookCover" alt="book cover">
             </div>
@@ -20,9 +23,14 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import { RouterLink } from 'vue-router';
 import { useBookStore } from '../store/bookStore';
 
 // initialise pinia store
 const bookStore = useBookStore()
+
+onMounted(() => {
+    bookStore.clearError()
+})
 </script>
