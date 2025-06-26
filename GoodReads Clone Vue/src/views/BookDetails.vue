@@ -184,7 +184,6 @@ const handleRemoveBook = () => {
             console.log('Book not found in read list')
         }
     }
-
     router.push('/')
 }
 </script>
