@@ -73,7 +73,6 @@ const calculateBookPercentage = () => {
         
         console.log('Progress updated successfully')
         
-        // Clear the input and close modal
         inputPageCount.value = ''
         hideCurrentlyReadingModal()
         
