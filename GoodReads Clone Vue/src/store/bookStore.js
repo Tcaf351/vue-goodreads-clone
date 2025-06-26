@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useModalStore } from './modalStore'
 
 export const useBookStore = defineStore('bookStore', {
     state: () => ({
@@ -65,14 +66,19 @@ export const useBookStore = defineStore('bookStore', {
                 return false
             }
         
-            // Add progress property to the book when adding to currently reading
+            // Add progress property AND fix pageCount if invalid
             const bookWithProgress = {
                 ...book,
-                progress: 0  // Start with 0% progress
+                progress: 0,
+                pageCount: parseInt(book.pageCount) || null
             }
         
             this.currentlyReading.push(bookWithProgress)
             localStorage.setItem('currently-reading', JSON.stringify(this.currentlyReading))
+            
+            // IMPORTANT: Reset modalStore progress when adding a new book
+            const modalStore = useModalStore()
+            modalStore.currentProgress = 0
             
             return true
         },

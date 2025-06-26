@@ -42,9 +42,9 @@ const pageCount = props?.currentlyReadingData[0]?.pageCount || 'Page count is no
 const modalStore = useModalStore()
 const bookStore = useBookStore()
 
-// Get progress from the book object (persists through page refreshes)
+// Use modalStore progress directly (it stays in sync with book object)
 const currentProgress = computed(() => {
-    return props?.currentlyReadingData[0]?.progress || 0
+    return modalStore.currentProgress
 })
 
 // Sync modalStore with book progress when component loads

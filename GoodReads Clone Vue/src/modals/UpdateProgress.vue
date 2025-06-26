@@ -49,9 +49,15 @@ const errorMessage = ref('')
 
 const calculateBookPercentage = () => {
     const currentPage = parseInt(inputPageCount.value)
-    const totalPages = fullBookLength
-
+    const totalPages = parseInt(fullBookLength)
+    
     errorMessage.value = ''
+
+    // Check if totalPages is valid
+    if (!totalPages || isNaN(totalPages) || totalPages <= 0) {
+        errorMessage.value = 'This book does not have page count information. Cannot calculate progress by pages.'
+        return
+    }
 
     if (isNaN(currentPage) || currentPage <= 0) {
         errorMessage.value = 'Please enter a valid page number'
@@ -63,19 +69,13 @@ const calculateBookPercentage = () => {
         return
     }
 
+    // calculate percentage
     const percentage = Math.round((currentPage / totalPages) * 100)
 
     try {
-        // Debug: Check what's happening
-        console.log('About to update progress:', percentage)
-        
         modalStore.UpdateProgress(percentage)
-        
-        console.log('Progress updated successfully')
-        
         inputPageCount.value = ''
         hideCurrentlyReadingModal()
-        
     } catch (error) {
         console.error('Error updating progress:', error)
         errorMessage.value = 'Error updating progress. Please try again.'

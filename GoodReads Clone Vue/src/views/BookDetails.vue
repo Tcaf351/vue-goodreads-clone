@@ -150,8 +150,8 @@ const moveToCurrentlyReading = () => {
         return
     }
     
-    // Reset progress when starting a new book
-    modalStore.resetProgress()
+    // Reset progress to 0 (no need to call modalStore.resetProgress)
+    modalStore.currentProgress = 0
     
     // Try to add to currently reading
     const success = bookStore.addToCurrentlyReading(book)
